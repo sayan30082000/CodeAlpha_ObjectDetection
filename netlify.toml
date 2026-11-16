@@ -1,0 +1,16 @@
+# Netlify serves the browser version of the detector (built by `python export_web.py`).
+[build]
+  publish = "web"
+
+# Cross-origin isolation lets ONNX Runtime use several CPU threads when WebGPU isn't available.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Embedder-Policy = "credentialless"
+
+[[headers]]
+  for = "/yolo11n.onnx"
+  [headers.values]
+    Content-Type = "application/octet-stream"
+    Cache-Control = "public, max-age=86400"
